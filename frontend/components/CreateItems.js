@@ -31,14 +31,14 @@ class CreateItems extends Component {
   state = {
     title: "",
     description: "",
-    price: 0,
     image: "",
-    largeImage: ""
+    largeImage: "",
+    price: 0,
   };
 
   handleChange = e => {
     const { name, type, value } = e.target;
-    const val = type === number ? parseFloat(value) : value;
+    const val = type === 'number' ? parseFloat(value) : value;
     this.setState({ [name]: val });
   };
 
@@ -49,12 +49,11 @@ class CreateItems extends Component {
     data.append('file', files[0]);
     data.append('upload_preset', 'sickfits');
 
-    const res = await fetch('https://api.cloudinary.com/sick-fits-ko/v1_1/wesbostutorial/image/upload', {
+    const res = await fetch('https://api.cloudinary.com/v1_1/sick-fits-ko/image/upload', {
       method: 'POST',
       body: data
     });
     const file = await res.json();
-    console.log(file);
     this.setState({
       image: file.secure_url,
       largeImage: file.eager[0].secure_url
@@ -63,9 +62,10 @@ class CreateItems extends Component {
 
   render() {
     return (
-      <Mutation query={CREATE_ITEM_MUTATION} variables={this.state}>
+      <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
         {(createItem, { loading, error }) => (
           <Form
+            data-test="form"
             onSubmit={async e => {
               // Stop form from submiting
               e.preventDefault();
@@ -93,7 +93,7 @@ class CreateItems extends Component {
                 {this.state.image && (
                   <img width="200" src={this.state.image}
                   alt="Upload Preview" />
-                )};
+                )}
               </label>
 
               <label htmlFor="title">
@@ -124,8 +124,7 @@ class CreateItems extends Component {
 
               <label htmlFor="description">
                 Description
-                <input
-                  type="number"
+                <textarea
                   id="description"
                   name="description"
                   placeholder="Enter A Description"

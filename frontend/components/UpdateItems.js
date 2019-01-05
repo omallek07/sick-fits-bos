@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Mutation, Query } from "react-apollo";
-import Router from "next/Router";
+import Router from "next/router";
 
 import gql from "graphql-tag";
 import Form from "./styles/Form";
@@ -44,7 +44,7 @@ class UpdateItems extends Component {
 
   handleChange = e => {
     const { name, type, value } = e.target;
-    const val = type === number ? parseFloat(value) : value;
+    const val = type === 'number' ? parseFloat(value) : value;
     this.setState({ [name]: val });
   };
 
@@ -73,7 +73,7 @@ class UpdateItems extends Component {
           if(loading) return <p>Loading...</p>;
           if(!data.item) return <p>No Item Found for ID {this.props.id}</p>;
           return (
-            <Mutation query={UPDATE_ITEM_MUTATION} variables={this.state}>
+            <Mutation mutation={UPDATE_ITEM_MUTATION} variables={this.state}>
               {(updateItem, { loading, error }) => (
                 <Form onSubmit={e => this.updateItem(e, updateItem)}
                 >
@@ -107,8 +107,7 @@ class UpdateItems extends Component {
 
                     <label htmlFor="description">
                       Description
-                      <input
-                        type="number"
+                      <textarea
                         id="description"
                         name="description"
                         placeholder="Enter A Description"
@@ -117,7 +116,7 @@ class UpdateItems extends Component {
                         onChange={this.handleChange}
                       />
                     </label>
-                    <button type="Submit">Sav{loading ? 'ing' : 'e'}</button>
+                    <button type="Submit">Sav{loading ? 'ing' : 'e'} Changes</button>
                   </fieldset>
                 </Form>
               )}

@@ -45,6 +45,7 @@ class SingleItem extends Component {
           if (error) return <ErrorMessage error={error} />;
           if (loading) return <p>Loading...</p>;
           if (!data.item) return <p>No Item Found for {this.props.id}</p>
+          const item = data.item;
           return (<SingleItemStyles>
             <Head>
               <title>Sick Fits | {item.title}</title>
@@ -63,3 +64,4 @@ class SingleItem extends Component {
 }
 
 export default SingleItem;
+export { SINGLE_ITEM_QUERY };
