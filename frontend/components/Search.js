@@ -4,7 +4,7 @@ import Router from "next/router";
 import { ApolloConsumer } from "react-apollo";
 import gql from "graphql-tag";
 import debounce from "lodash.debounce";
-import { DropDown, DropdownItem, SearchStyles } from "./styles/DropDown";
+import { DropDown, DropDownItem, SearchStyles } from "./styles/DropDown";
 
 const SEARCH_ITEMS_QUERY = gql`
   query SEARCH_ITEMS_QUERY($searchTerm: String!) {
@@ -32,7 +32,7 @@ function routeToItem(item) {
   });
 }
 
-class AutoComplete extends React.component {
+class AutoComplete extends React.Component {
   state = {
     items: [],
     loading: false
@@ -88,17 +88,17 @@ class AutoComplete extends React.component {
               {isOpen && (
                 <DropDown>
                   {this.state.items.map((item, index) => (
-                    <DropdownItem
+                    <DropDownItem
                       {...getItemProps({ item })}
                       key={item.key}
                       highlighted={index === highlightedIndex}
                     >
                       <img width="50" src={item.image} alt={item.title} />
                       {item.title}
-                    </DropdownItem>
+                    </DropDownItem>
                   ))}
                   {!this.state.items.length && !this.state.loading && (
-                    <DropdownItem>Nothing Found {inputValue}</DropdownItem>
+                    <DropDownItem>Nothing Found {inputValue}</DropDownItem>
                   )}
                 </DropDown>
               )}
