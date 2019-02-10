@@ -318,11 +318,11 @@ var _jsxFileName = "/Users/kevinomalley/Coding-Projects/Advanced-React/sick-fits
 var AnimationStyles = styled_components__WEBPACK_IMPORTED_MODULE_3___default.a.span.withConfig({
   displayName: "CartCount__AnimationStyles",
   componentId: "xxvp4g-0"
-})(["position:relative;.count{display:block;position:relative;transition:all 0.4s;backface-visibility:hidden;}.count-enter{transform:rotateX(0.5turn);}.count-enter-active{transform:rotateX(0);}.count-exit{top:0;position:absolute;transform:rotateX(0);}.count-exit-active{transform:rotateX(0.5turn);}"]);
+})(["position:relative;.count{display:block;position:relative;transition:all 0.4s;backface-visibility:hidden;}.count-enter{transform:scale(4) rotateX(0.5turn);}.count-enter-active{transform:rotateX(0);}.count-exit{top:0;position:absolute;transform:rotateX(0);}.count-exit-active{transform:scale(4) rotateX(0.5turn);}"]);
 var Dot = styled_components__WEBPACK_IMPORTED_MODULE_3___default.a.div.withConfig({
   displayName: "CartCount__Dot",
   componentId: "xxvp4g-1"
-})(["background:", ";color:white;border-radius:50%;padding:0.5rem;line-height:2rem;min-width:3rem;margin-left:1rem;font-weight:100;font-feature-settings:\"tnum\";font-variant-numeric:tabular-nums;"], function (props) {
+})(["background:", ";color:white;border-radius:50%;padding:0.5rem;line-height:2rem;min-width:3rem;margin-left:1rem;font-weight:100;font-feature-settings:'tnum';font-variant-numeric:tabular-nums;"], function (props) {
   return props.theme.red;
 });
 
@@ -341,14 +341,14 @@ var CartCount = function CartCount(_ref) {
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_transition_group__WEBPACK_IMPORTED_MODULE_2__["CSSTransition"], {
+    unmountOnExit: true,
     className: "count",
     classNames: "count",
-    key: "count",
+    key: count,
     timeout: {
       enter: 400,
       exit: 400
     },
-    unmountOnExit: true,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 47
@@ -1641,7 +1641,10 @@ function (_React$Component) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                // shows progress meter on top of page
+                nprogress__WEBPACK_IMPORTED_MODULE_5___default.a.start(); // manually call the mutation once we have the stripe token
+
+                _context.next = 3;
                 return createOrder({
                   variables: {
                     token: res.id
@@ -1650,10 +1653,16 @@ function (_React$Component) {
                   alert(err.message);
                 });
 
-              case 2:
-                order = _context.sent;
-
               case 3:
+                order = _context.sent;
+                next_router__WEBPACK_IMPORTED_MODULE_4___default.a.push({
+                  pathname: '/order',
+                  query: {
+                    id: order.data.createOrder.id
+                  }
+                });
+
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -1677,7 +1686,7 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_User__WEBPACK_IMPORTED_MODULE_10__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 45
+          lineNumber: 50
         },
         __self: this
       }, function (_ref2) {
@@ -1689,7 +1698,7 @@ function (_React$Component) {
           }],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 47
+            lineNumber: 52
           },
           __self: this
         }, function (createOrder) {
@@ -1706,7 +1715,7 @@ function (_React$Component) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 52
+              lineNumber: 57
             },
             __self: this
           }, _this2.props.children);
